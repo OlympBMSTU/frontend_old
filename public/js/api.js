@@ -1,7 +1,7 @@
 class API {
 
     constructor() {
-        this.host = "http://80.87.193.245:3001";
+        this.host = "http://127.0.0.1:3000";
     }
 
     requestData(method, httpMethod, params) {
@@ -12,6 +12,7 @@ class API {
 			headers: {
 				'Content-type': 'application/json',
 				'Access-Control-Request-Method': httpMethod,
+				'Authorization': 'Bearer ' + user.token,
 			},
 			mode: 'cors',
 			body: null
@@ -37,9 +38,3 @@ class API {
 }
 
 const api = new API();
-
-api.requestData("register", "POST", {login: "login", password: "pass", email: "somet@mail.ru"})
-				.then(function(response) {
-					console.log(response);
-						
-				});

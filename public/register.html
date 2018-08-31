@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Запись на прием</title>
+        <meta charset="utf8" />
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+    </head>
+    <body>
+        <div id="error"></div>
+        <div class="content">
+            <div class="content__page content__page_login">
+                <div class="block block_login">
+                    <div class="block__header">
+                        Регистрация
+                    </div>
+                    <div class="block__content">
+                        <form class="login" id="login_form">
+                            <div class="login_pair">
+                                <label class="login__label">Логин</label>
+                                <input class="login__input" type="text" placeholder="ata" />
+                            </div>
+                            <div class="login_pair">
+                                <label class="login__label">Пароль(не менее 8 символов)</label>
+                                <input class="login__input" type="password" placeholder="12345678" />
+                            </div>
+                            <div class="login_pair">
+                                <label class="login__label">Пароль (повтор)</label>
+                                <input class="login__input" type="passwordr" placeholder="12345678" />
+                            </div>
+                            <div class="login_pair">
+                                <label class="login__label">Почта</label>
+                                <input class="login__input" type="email" placeholder="s@mail.ru" />
+                            </div>
+                            <button class="btn">Зарегистрироваться</button>
+                            <a class="btn" href="/">Назад</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+              
+    </body>
+    
+    <script src="js/user.js"></script>
+    <script src="js/router.js"></script>
+    <script src="js/api.js"></script>
+</html>
