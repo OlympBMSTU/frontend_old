@@ -66,7 +66,9 @@ back_to_register_form.onclick = function() {
 const logout_in_info = document.getElementById("btn_logout");
 logout_in_info.onclick = function() {
     toLogin();
+    console.log(document.cookie);
     deleteCookie('bmstuOlimpAuth');
+    console.log(document.cookie);
     return false;
 }
 
