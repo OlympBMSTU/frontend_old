@@ -149,7 +149,7 @@ login_form.addEventListener('submit', event => {
             if (response.res_code === 'OK') {
                 showError(response.res_msg, true);
 
-                setCookie('bmstuOlimpAuth', response.res_data, {expires: 300});
+                setCookie('bmstuOlimpAuth', response.res_data, {expires: 300, domain: '.chs-polygon.website'});
 
                 alert(document.cookie);
                 console.dir(response);
