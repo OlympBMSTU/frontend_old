@@ -15,8 +15,8 @@ function toInfo() {
         api.requestData("info", "GET")
         .then(function(response) {
             if (response.res_code === 'OK') {
-                document.getElementById('login_info').innerHTML = response.login;
-                document.getElementById('email_info').innerHTML = response.email;
+                document.getElementById('login_info').innerHTML = response.res_data.login;
+                document.getElementById('email_info').innerHTML = response.res_data.email;
 
                 document.getElementById('info_part').style.display = 'block';
 
