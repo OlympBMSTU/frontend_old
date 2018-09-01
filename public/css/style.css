@@ -232,3 +232,11 @@ select {
     width: 300px;
     text-align: center;
 }
+
+#login_info {
+    color: #002903;
+}
+
+#email_info {
+    color: #002903;
+}

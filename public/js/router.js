@@ -10,17 +10,32 @@ function toRegister() {
     document.getElementById('info_part').style.display = 'none';
 }
 
+function toInfo() {
+    if (hasCookie('bmstuOlimpAuth')) {
+        api.requestData("info", "GET")
+        .then(function(response) {
+            if (response.res_code === 'OK') {
+                document.getElementById('login_info').innerHTML = response.login;
+                document.getElementById('email_info').innerHTML = response.email;
+
+                document.getElementById('info_part').style.display = 'block';
+
+                document.getElementById('login_part').style.display = 'none';
+                document.getElementById('register_part').style.display = 'none';
+            } else {
+                toLogin();
+                deleteCookie('bmstuOlimpAuth');
+            }
+        });
+    } else {
+        toLogin();
+    }
+}
+
 function toLogin() {
     document.getElementById('login_part').style.display = 'block';
 
-    document.getElementById('register_part').style.display = 'none';
     document.getElementById('info_part').style.display = 'none';
-}
-
-function toInfo() {
-    document.getElementById('info_part').style.display = 'block';
-
-    document.getElementById('login_part').style.display = 'none';
     document.getElementById('register_part').style.display = 'none';
 }
 
@@ -151,17 +166,12 @@ login_form.addEventListener('submit', event => {
 
                 setCookie('bmstuOlimpAuth', response.res_data, {expires: 300, domain: '.chs-polygon.website'});
 
-                alert(document.cookie);
-                console.dir(response);
                 toInfo();
-                api.requestData("info", "GET")
-                .then(function(response) {
-                    console.dir(response);
-                    showError(response.res_msg);
-                });
             } else {
                 showError(response.res_msg);
             }
         });
     }	
 });
+
+toInfo();
