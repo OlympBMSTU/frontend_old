@@ -174,4 +174,6 @@ login_form.addEventListener('submit', event => {
     }	
 });
 
-toInfo();
+window.onload = function() {
+    toInfo();
+}
