@@ -53,22 +53,23 @@ function showError (msg, dissolve = false) {
 // BTNS
 const to_register_form = document.getElementById("btn_start_register");
 to_register_form.onclick = function() {
+    showError('');
     toRegister();
     return false;
 }
 
 const back_to_register_form = document.getElementById("btn_back_to_login");
 back_to_register_form.onclick = function() {
+    showError('');
     toLogin();
     return false;
 }
 
 const logout_in_info = document.getElementById("btn_logout");
 logout_in_info.onclick = function() {
+    showError('');
     toLogin();
-    console.log(document.cookie);
     deleteCookie('bmstuOlimpAuth');
-    console.log(document.cookie);
     return false;
 }
 
