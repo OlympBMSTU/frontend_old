@@ -63,6 +63,13 @@ back_to_register_form.onclick = function() {
     return false;
 }
 
+const logout_in_info = document.getElementById("btn_logout");
+logout_in_info.onclick = function() {
+    toLogin();
+    deleteCookie('bmstuOlimpAuth');
+    return false;
+}
+
 const register_form = document.getElementById("register_form");
 register_form.addEventListener('submit', event => {
     event.preventDefault();
