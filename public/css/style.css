@@ -234,9 +234,10 @@ select {
 }
 
 #login_info {
-    color: #002903;
+    color: #005c08;
+    font-size: 20px;
 }
 
 #email_info {
-    color: #002903;
+    color: #005c08;
 }
