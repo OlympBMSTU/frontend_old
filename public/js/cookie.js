@@ -1,3 +1,5 @@
+const DOMAIN = '.chs-polygon.website';
+
 // возвращает cookie с именем name, если есть, если нет, то undefined
 function getCookie(name) {
   var matches = document.cookie.match(new RegExp(
@@ -18,6 +20,8 @@ function hasCookie(name) {
 // options - объект с свойствами cookie (expires, path, domain, secure)
 function setCookie(name, value, options) {
   options = options || {};
+  
+  options.domain = DOMAIN;
 
   var expires = options.expires;
 
@@ -48,6 +52,7 @@ function setCookie(name, value, options) {
 // удаляет cookie с именем name
 function deleteCookie(name) {
   setCookie(name, "", {
+    domain: '.chs-polygon.website',
     expires: -1
   })
 }
