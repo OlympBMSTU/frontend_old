@@ -125,12 +125,21 @@ register_form.addEventListener('submit', event => {
         isValid = false;
 
         showError('Пароли не совпадают');
+
+        return false;
     }
     
-    alert(grecaptcha.getResponse());
-			
+    let captcha = grecaptcha.getResponse();
+    
+    if (captcha === '') {
+        showError('Заполните поле reCaptcha');
+        isValid = false;
+
+        return false;
+    }
+
 	if (isValid){
-        api.requestData("register", "POST", {login: login, password: pass, email: mail})
+        api.requestData("register", "POST", {login: login, password: pass, email: mail, 'g-recaptcha-response': captcha})
         .then(function(response) {
             
             if (response.res_code === 'OK') {
