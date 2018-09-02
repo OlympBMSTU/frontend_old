@@ -93,6 +93,13 @@ html, body {
 
 .login_pair {
     position: relative;
+    width: 100%;
+}
+
+.captcha_block {
+    margin: auto;
+    width: 75%;
+    padding: 5px;
 }
 
 .login__label {
