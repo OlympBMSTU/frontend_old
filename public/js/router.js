@@ -126,6 +126,8 @@ register_form.addEventListener('submit', event => {
 
         showError('Пароли не совпадают');
     }
+    
+    alert(grecaptcha.getResponse());
 			
 	if (isValid){
         api.requestData("register", "POST", {login: login, password: pass, email: mail})
