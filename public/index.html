@@ -19,11 +19,11 @@
                         <form class="login" id="login_form">
                             <div class="login_pair">
                                 <label class="login__label">Логин</label>
-                                <input class="login__input" type="text" value="ata" />
+                                <input class="login__input" type="text" />
                             </div>
                             <div class="login_pair">
                                 <label class="login__label">Пароль</label>
-                                <input class="login__input" type="password" value="12345678" />
+                                <input class="login__input" type="password" />
                             </div>
                             <button class="btn">Войти</button>
                             <a id="btn_start_register" class="btn" href="/">Регистрация</a>
@@ -39,19 +39,23 @@
                         <form class="login" id="register_form">
                             <div class="login_pair">
                                 <label class="login__label">Логин</label>
-                                <input class="login__input" type="text" value="ata" />
+                                <input class="login__input" type="text" value="" />
                             </div>
                             <div class="login_pair">
                                 <label class="login__label">Пароль(не менее 8 символов)</label>
-                                <input class="login__input" type="password" value="12345678" />
+                                <input class="login__input" type="password" value="" />
                             </div>
                             <div class="login_pair">
                                 <label class="login__label">Пароль (повтор)</label>
-                                <input class="login__input" type="password" value="12345678" />
+                                <input class="login__input" type="password" value="" />
+                            </div>
+                            <div class="login_pair">
+                                <label class="login__label">ФИО</label>
+                                <input class="login__input" type="fio" value="" />
                             </div>
                             <div class="login_pair">
                                 <label class="login__label">Почта</label>
-                                <input class="login__input" type="email" value="s@mail.ru" />
+                                <input class="login__input" type="text" value="" />
                             </div>
                             <div class='captcha_block'>
                                     <div class="g-recaptcha" data-sitekey="6LfhW20UAAAAADa9DGJSwkbulFIWSKhkSS-N0Glo"></div>
@@ -68,7 +72,7 @@
                     </div>
                     <div class="block__content">
                         <div class="personal_info">
-                            <span id="login_info">Login</span>, вы успешно зарегистрированы для участия в олимпиаде. Позднее на указанную вами почту (<span id="email_info">sam@mail.ru</span>) будут отправлены дальнейшие инструкции.
+                            <span id="fio_info">Login</span>, вы успешно зарегистрированы для участия в олимпиаде. Позднее на указанную вами почту (<span id="email_info">sam@mail.ru</span>) будут отправлены дальнейшие инструкции.
                         </div>
                         
                         <a id='btn_logout' class="btn" href="/">Выход</a>

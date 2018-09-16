@@ -15,7 +15,7 @@ function toInfo() {
         api.requestData("info", "GET")
         .then(function(response) {
             if (response.res_code === 'OK') {
-                document.getElementById('login_info').innerHTML = response.res_data.login;
+                document.getElementById('fio_info').innerHTML = response.res_data.fio;
                 document.getElementById('email_info').innerHTML = response.res_data.email;
 
                 document.getElementById('info_part').style.display = 'block';
@@ -86,12 +86,18 @@ register_form.addEventListener('submit', event => {
     const repass_input = register_form.getElementsByClassName("login__input")[2];
     const repass = repass_input.value;
 
-    const mail_input = register_form.getElementsByClassName("login__input")[3];
+    const fio_input = register_form.getElementsByClassName("login__input")[3];
+    const fio = fio_input.value;
+
+    const mail_input = register_form.getElementsByClassName("login__input")[4];
     const mail = mail_input.value;
+
+
 
     login_input.style.backgroundColor = "#ffffff";
     pass_input.style.backgroundColor = "#ffffff";
     repass_input.style.backgroundColor = "#ffffff";
+    fio_input.style.backgroundColor = "#ffffff";
     mail_input.style.backgroundColor = "#ffffff";
 
     showError('');
@@ -114,6 +120,11 @@ register_form.addEventListener('submit', event => {
         isValid = false;
     }
 
+    if (fio === '') {
+        fio_input.style.backgroundColor = "#ffbbbb";
+        isValid = false;
+    }
+
     if (mail === '') {
         mail_input.style.backgroundColor = "#ffbbbb";
         isValid = false;
@@ -131,15 +142,15 @@ register_form.addEventListener('submit', event => {
     
     let captcha = grecaptcha.getResponse();
     
-    if (captcha === '') {
+    /*if (captcha === '') {
         showError('Заполните поле reCaptcha');
         isValid = false;
 
         return false;
-    }
+    }*/
 
 	if (isValid){
-        api.requestData("register", "POST", {login: login, password: pass, email: mail, 'g-recaptcha-response': captcha})
+        api.requestData("register", "POST", {login: login, password: pass, fio: fio, email: mail, 'g-recaptcha-response': captcha})
         .then(function(response) {
             
             if (response.res_code === 'OK') {
