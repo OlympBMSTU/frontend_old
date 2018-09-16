@@ -1,1 +1,211 @@
-const DOMAIN='.olymp.bmstu.ru';function getCookie(_0x52fba5){var _0x5c32fd=document['cookie']['match'](new RegExp('(?:^|;\x20)'+_0x52fba5['replace'](/([\.$?*|{}\(\)\[\]\\\/\+^])/g,'\x5c$1')+'=([^;]*)'));return _0x5c32fd?decodeURIComponent(_0x5c32fd[0x1]):undefined;}function hasCookie(_0x49780d){var _0x27720a=document['cookie']['match'](new RegExp('(?:^|;\x20)'+_0x49780d['replace'](/([\.$?*|{}\(\)\[\]\\\/\+^])/g,'\x5c$1')+'=([^;]*)'));return _0x27720a?!![]:![];}function setCookie(_0x39d458,_0xfe37fa,_0x42c09c){_0x42c09c=_0x42c09c||{};_0x42c09c['domain']=DOMAIN;var _0x3b29d0=_0x42c09c['expires'];if(typeof _0x3b29d0=='number'&&_0x3b29d0){var _0x47fda5=new Date();_0x47fda5['setTime'](_0x47fda5['getTime']()+_0x3b29d0*0x3e8);_0x3b29d0=_0x42c09c['expires']=_0x47fda5;}if(_0x3b29d0&&_0x3b29d0['toUTCString']){_0x42c09c['expires']=_0x3b29d0['toUTCString']();}_0xfe37fa=encodeURIComponent(_0xfe37fa);var _0x49c030=_0x39d458+'='+_0xfe37fa;for(var _0x3c73cf in _0x42c09c){_0x49c030+=';\x20'+_0x3c73cf;var _0xd93b=_0x42c09c[_0x3c73cf];if(_0xd93b!==!![]){_0x49c030+='='+_0xd93b;}}document['cookie']=_0x49c030;}function deleteCookie(_0x4e8cce){setCookie(_0x4e8cce,'',{'domain':'.chs-polygon.website','expires':-0x1});}
+if (!navigator.cookieEnabled) {
+    alert( 'Включите cookie для работы с этим сайтом' );
+  }
+
+// LIB
+function toRegister() {
+    document.getElementById('register_part').style.display = 'block';
+
+    document.getElementById('login_part').style.display = 'none';
+    document.getElementById('info_part').style.display = 'none';
+}
+
+function toInfo() {
+    if (hasCookie('bmstuOlimpAuth')) {
+        api.requestData("info", "GET")
+        .then(function(response) {
+            if (response.res_code === 'OK') {
+                document.getElementById('fio_info').innerHTML = response.res_data.fio;
+                document.getElementById('email_info').innerHTML = response.res_data.email;
+
+                document.getElementById('info_part').style.display = 'block';
+
+                document.getElementById('login_part').style.display = 'none';
+                document.getElementById('register_part').style.display = 'none';
+            } else {
+                toLogin();
+                deleteCookie('bmstuOlimpAuth');
+            }
+        });
+    } else {
+        toLogin();
+    }
+}
+
+function toLogin() {
+    document.getElementById('login_part').style.display = 'block';
+
+    document.getElementById('info_part').style.display = 'none';
+    document.getElementById('register_part').style.display = 'none';
+}
+
+function showError (msg, dissolve = false) {
+    const err_field = document.getElementById("error");
+    err_field.innerHTML = msg;
+
+    if (dissolve) {
+        setTimeout(function() { document.getElementById("error").innerHTML='' }, 5000);
+    }
+}
+
+
+
+// BTNS
+const to_register_form = document.getElementById("btn_start_register");
+to_register_form.onclick = function() {
+    showError('');
+    toRegister();
+    return false;
+}
+
+const back_to_register_form = document.getElementById("btn_back_to_login");
+back_to_register_form.onclick = function() {
+    showError('');
+    toLogin();
+    return false;
+}
+
+const logout_in_info = document.getElementById("btn_logout");
+logout_in_info.onclick = function() {
+    showError('');
+    toLogin();
+    deleteCookie('bmstuOlimpAuth');
+    return false;
+}
+
+const register_form = document.getElementById("register_form");
+register_form.addEventListener('submit', event => {
+    event.preventDefault();
+
+    const login_input = register_form.getElementsByClassName("login__input")[0];
+    const login = login_input.value;
+
+    const pass_input = register_form.getElementsByClassName("login__input")[1];
+    const pass = pass_input.value;
+
+    const repass_input = register_form.getElementsByClassName("login__input")[2];
+    const repass = repass_input.value;
+
+    const fio_input = register_form.getElementsByClassName("login__input")[3];
+    const fio = fio_input.value;
+
+    const mail_input = register_form.getElementsByClassName("login__input")[4];
+    const mail = mail_input.value;
+
+
+
+    login_input.style.backgroundColor = "#ffffff";
+    pass_input.style.backgroundColor = "#ffffff";
+    repass_input.style.backgroundColor = "#ffffff";
+    fio_input.style.backgroundColor = "#ffffff";
+    mail_input.style.backgroundColor = "#ffffff";
+
+    showError('');
+
+    let isValid = true;
+    if (login === '') {
+        login_input.style.backgroundColor = "#ffbbbb";
+        isValid = false;
+    }
+
+    if (pass.length < 8) {
+        pass_input.style.backgroundColor = "#ffbbbb";
+        showError('Пароль должен содержать минимум 8 символов');
+        isValid = false;
+    }
+
+    if (repass.length < 8) {
+        repass_input.style.backgroundColor = "#ffbbbb";
+        showError('Пароль должен содержать минимум 8 символов');
+        isValid = false;
+    }
+
+    if (fio === '') {
+        fio_input.style.backgroundColor = "#ffbbbb";
+        isValid = false;
+    }
+
+    if (mail === '') {
+        mail_input.style.backgroundColor = "#ffbbbb";
+        isValid = false;
+    }
+
+    if (pass != repass) { 
+        pass_input.style.backgroundColor = "#ffbbbb";
+        repass_input.style.backgroundColor = "#ffbbbb";
+        isValid = false;
+
+        showError('Пароли не совпадают');
+
+        return false;
+    }
+    
+    let captcha = grecaptcha.getResponse();
+    
+    /*if (captcha === '') {
+        showError('Заполните поле reCaptcha');
+        isValid = false;
+
+        return false;
+    }*/
+
+	if (isValid){
+        api.requestData("register", "POST", {login: login, password: pass, fio: fio, email: mail, 'g-recaptcha-response': captcha})
+        .then(function(response) {
+            
+            if (response.res_code === 'OK') {
+                showError(response.res_msg, true);
+                toLogin();
+            } else {
+                showError(response.res_msg);
+            }
+        });
+    }	
+});
+
+const login_form = document.getElementById("login_form");
+login_form.addEventListener('submit', event => {
+    event.preventDefault();
+
+    const login_input = login_form.getElementsByClassName("login__input")[0];
+    const login = login_input.value;
+
+    const pass_input = login_form.getElementsByClassName("login__input")[1];
+    const pass = pass_input.value;
+
+    login_input.style.backgroundColor = "#ffffff";
+    pass_input.style.backgroundColor = "#ffffff";
+
+    showError('');
+
+    let isValid = true;
+    if (login === '') {
+        login_input.style.backgroundColor = "#ffbbbb";
+        isValid = false;
+    }
+
+    if (pass.length < 8) {
+        pass_input.style.backgroundColor = "#ffbbbb";
+        isValid = false;
+        showError('Пароль должен содержать минимум 8 символов');
+    }
+			
+	if (isValid){
+        api.requestData("login", "POST", {login: login, password: pass})
+        .then(function(response) {
+            if (response.res_code === 'OK') {
+                showError(response.res_msg, true);
+
+                setCookie('bmstuOlimpAuth', response.res_data, {expires: 300});
+
+                toInfo();
+            } else {
+                showError(response.res_msg);
+            }
+        });
+    }	
+});
+
+window.onload = function() {
+    toInfo();
+}
