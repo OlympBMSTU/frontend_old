@@ -10,20 +10,27 @@
     <body>
         <div id="error"></div>
         <div class="content">
-            <div class="content__page content__page_login">
-                <div id="login_part" class="block block_login">
-                    <div class="block__header">
-                        Вход
+            <div class="content_parts">
+                <div id="header_part">
+                    <div id="header">
+                        Олимпиады<br>"Шаг в будущее"
+                    </div>   
+                </div>
+                 
+                <div id="login_part" class="part">
+                    <div class="part_header">
+                         
                     </div>
-                    <div class="block__content">
-                        <form class="login" id="login_form">
-                            <div class="login_pair">
-                                <label class="login__label">Логин</label>
-                                <input class="login__input" type="text" />
+                    <div class="part_content">
+                        <form id="login_form">
+                            <div class="input_pair">
+                                <label>Логин</label>
+                                <input id="log_login_input" type="text" />
                             </div>
-                            <div class="login_pair">
-                                <label class="login__label">Пароль</label>
-                                <input class="login__input" type="password" />
+                            <div class="input_pair">
+                                <label>Пароль</label>
+                                <input class="log_password_input" type="password" />
+                                <a id="btn_recover_pass" class="notes" href="/">Забыли пароль?</a>
                             </div>
                             <button class="btn">Войти</button>
                             <a id="btn_start_register" class="btn" href="/">Регистрация</a>
@@ -31,51 +38,93 @@
                     </div>
                 </div>
 
-                <div id="register_part"  class="block block_login">
-                    <div class="block__header">
+                <div id="recover_part" class="part">
+                        <div class="part_header">
+                            Восстановление пароля
+                        </div>
+                        <div class="part_content">
+                            <form id="recover_form">
+                                <div class="input_pair">
+                                    <label>Логин</label>
+                                    <input id="rec_login_input" type="text" />
+                                </div>
+                                <div class="input_pair">
+                                    <label>Эл. почта</label>
+                                    <input class="rec_email_input" type="email" />
+                                </div>
+                                <div class="captcha_block">
+                                        <div class="captcha_div">
+                                                <div class="g-recaptcha" data-sitekey="6LfhW20UAAAAADa9DGJSwkbulFIWSKhkSS-N0Glo"></div>
+                                        </div>
+                                </div>
+                                <button class="btn">Восстановить</button>
+                                <a id="btn_rec_to_login" class="btn" href="/">Назад</a>
+                            </form>
+                        </div>
+                    </div>
+
+                <div id="register_part"  class="part">
+                    <div class="part_header">
                         Регистрация
                     </div>
-                    <div class="block__content">
+                    <div class="part_content">
                         <form class="login" id="register_form">
-                            <div class="login_pair">
-                                <label class="login__label">Логин</label>
-                                <input class="login__input" type="text" value="" />
+                            <div class="input_pair">
+                                <label>Логин</label>
+                                <input id="reg_login_input" type="text" />
+                                <div class="notes"> </div>
                             </div>
-                            <div class="login_pair">
-                                <label class="login__label">Пароль(не менее 8 символов)</label>
-                                <input class="login__input" type="password" value="" />
+                            <div class="input_pair">
+                                    <label>Пароль</label>
+                                    <input id="reg_password_input" type="password" />
+                                    <div class="notes">Минимум 8 символов</div>
                             </div>
-                            <div class="login_pair">
-                                <label class="login__label">Пароль (повтор)</label>
-                                <input class="login__input" type="password" value="" />
+                            <div class="input_pair">
+                                    <label>Пароль</label>
+                                    <input id="reg_repassword_input" type="password" />
+                                    <div class="notes">Повторите пароль ещё раз</div>
                             </div>
-                            <div class="login_pair">
-                                <label class="login__label">ФИО</label>
-                                <input class="login__input" type="fio" value="" />
+                            <div class="input_pair">
+                                    <label>Эл. почта</label>
+                                    <input id="reg_email_input" type="email" />
+                                    <div class="notes"> </div>
                             </div>
-                            <div class="login_pair">
-                                <label class="login__label">Почта</label>
-                                <input class="login__input" type="text" value="" />
+                            <div class="input_pair">
+                                    <label>Фамилия</label>
+                                    <input id="reg_familia_input" type="text" />
+                                    <div class="notes"> </div>
                             </div>
-                            <div class='captcha_block'>
-                                    <div class="g-recaptcha" data-sitekey="6LfhW20UAAAAADa9DGJSwkbulFIWSKhkSS-N0Glo"></div>
+                            <div class="input_pair">
+                                    <label>Имя</label>
+                                    <input id="reg_imia_input" type="text" />
+                                    <div class="notes"> </div>
+                            </div>
+                            <div class="input_pair">
+                                    <label>Отчество</label>
+                                    <input id="reg_otchestvo_input" type="text" />
+                                    <div class="notes">Если есть</div>
+                            </div>
+                            <div class="captcha_block">
+                                <div class="captcha_div">
+                                        <div class="g-recaptcha" data-sitekey="6LfhW20UAAAAADa9DGJSwkbulFIWSKhkSS-N0Glo"></div>
+                                </div>
                             </div>
                             <button class="btn">Зарегистрироваться</button>
-                            <a id='btn_back_to_login' class="btn" href="/">Назад</a>
+                            <a id="btn_reg_to_login" class="btn" href="/">Назад</a>
                         </form>
                     </div>
                 </div>
 
-                <div id="info_part"  class="block block_login">
-                    <div class="block__header">
+                <div id="info_part"  class="part">
+                    <div class="part_header">
                         Информация
                     </div>
-                    <div class="block__content">
+                    <div class="part_content">
                         <div class="personal_info">
                             <span id="fio_info">Login</span>, вы успешно зарегистрированы для участия в олимпиаде. Позднее на указанную вами почту (<span id="email_info">sam@mail.ru</span>) будут отправлены дальнейшие инструкции.
                         </div>
                         
-                        <a id='btn_logout' class="btn" href="/">Выход</a>
+                        <a id="btn_logout" class="btn" href="/">Выход</a>
                     </div>
                 </div>
             </div>
@@ -83,7 +132,7 @@
               
     </body>
 
-    <script src='https://www.google.com/recaptcha/api.js'></script>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
     <script src="js/cookie.js"></script>
     <script src="js/api.js"></script>
     <script src="js/router.js"></script>

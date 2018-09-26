@@ -1,13 +1,28 @@
+const fioRegExp = /[А-Яа-я- ]+/;
+
 if (!navigator.cookieEnabled) {
     alert( 'Включите cookie для работы с этим сайтом' );
   }
 
 // LIB
-function toRegister() {
-    document.getElementById('register_part').style.display = 'block';
+function resetPage() {
+    for (let pt of document.getElementsByClassName('part')) {
+        pt.style.display = 'none';
+    };
+    for (let el of document.getElementsByTagName('input')) {
+        el.style.backgroundColor = "#ffffff";
+    };
+}
 
-    document.getElementById('login_part').style.display = 'none';
-    document.getElementById('info_part').style.display = 'none';
+function resetFields() {
+    for (let el of document.getElementsByTagName('input')) {
+        el.style.backgroundColor = "#ffffff";
+    };
+}
+
+function toRegister() {
+    resetPage();
+    document.getElementById('register_part').style.display = 'block';
 }
 
 function toInfo() {
@@ -15,16 +30,15 @@ function toInfo() {
         api.requestData("info", "GET")
         .then(function(response) {
             if (response.res_code === 'OK') {
+                resetPage();
+
                 document.getElementById('fio_info').innerHTML = response.res_data.fio;
                 document.getElementById('email_info').innerHTML = response.res_data.email;
 
                 document.getElementById('info_part').style.display = 'block';
-
-                document.getElementById('login_part').style.display = 'none';
-                document.getElementById('register_part').style.display = 'none';
             } else {
-                toLogin();
                 deleteCookie('bmstuOlimpAuth');
+                toLogin();
             }
         });
     } else {
@@ -33,10 +47,13 @@ function toInfo() {
 }
 
 function toLogin() {
+    resetPage();
     document.getElementById('login_part').style.display = 'block';
+}
 
-    document.getElementById('info_part').style.display = 'none';
-    document.getElementById('register_part').style.display = 'none';
+function toRecover() {
+    resetPage();
+    document.getElementById('recover_part').style.display = 'block';
 }
 
 function showError (msg, dissolve = false) {
@@ -51,6 +68,13 @@ function showError (msg, dissolve = false) {
 
 
 // BTNS
+const to_recover_pass = document.getElementById("btn_recover_pass");
+to_recover_pass.onclick = function() {
+    showError('');
+    toRecover();
+    return false;
+}
+
 const to_register_form = document.getElementById("btn_start_register");
 to_register_form.onclick = function() {
     showError('');
@@ -58,8 +82,15 @@ to_register_form.onclick = function() {
     return false;
 }
 
-const back_to_register_form = document.getElementById("btn_back_to_login");
-back_to_register_form.onclick = function() {
+const rec_to_login_form = document.getElementById("btn_rec_to_login");
+rec_to_login_form.onclick = function() {
+    showError('');
+    toLogin();
+    return false;
+}
+
+const reg_to_login_form = document.getElementById("btn_reg_to_login");
+reg_to_login_form.onclick = function() {
     showError('');
     toLogin();
     return false;
@@ -77,6 +108,8 @@ const register_form = document.getElementById("register_form");
 register_form.addEventListener('submit', event => {
     event.preventDefault();
 
+    resetFields();
+
     const login_input = register_form.getElementsByClassName("login__input")[0];
     const login = login_input.value;
 
@@ -86,19 +119,18 @@ register_form.addEventListener('submit', event => {
     const repass_input = register_form.getElementsByClassName("login__input")[2];
     const repass = repass_input.value;
 
-    const fio_input = register_form.getElementsByClassName("login__input")[3];
-    const fio = fio_input.value;
+    const email_input = register_form.getElementsByClassName("login__input")[3];
+    const email = email_input.value;
 
-    const mail_input = register_form.getElementsByClassName("login__input")[4];
-    const mail = mail_input.value;
+    const familia_input = register_form.getElementsByClassName("login__input")[4];
+    const familia = familia_input.value;
 
+    const imia_input = register_form.getElementsByClassName("login__input")[5];
+    const imia = imia_input.value;
 
+    const otchestvo_input = register_form.getElementsByClassName("login__input")[6];
+    const otchestvo = otchestvo_input.value;
 
-    login_input.style.backgroundColor = "#ffffff";
-    pass_input.style.backgroundColor = "#ffffff";
-    repass_input.style.backgroundColor = "#ffffff";
-    fio_input.style.backgroundColor = "#ffffff";
-    mail_input.style.backgroundColor = "#ffffff";
 
     showError('');
 
@@ -120,15 +152,34 @@ register_form.addEventListener('submit', event => {
         isValid = false;
     }
 
-    if (fio === '') {
-        fio_input.style.backgroundColor = "#ffbbbb";
+    let familia_check = familia.match(fioRegExp);
+    if (familia === '' || !familia_check || familia_check[0].length != familia.length) {
+        familia_input.style.backgroundColor = "#ffbbbb";
+        showError('В ФИО допускаются только русские буквы, пробелы и дефисы');
         isValid = false;
     }
 
-    if (mail === '') {
-        mail_input.style.backgroundColor = "#ffbbbb";
+    let imia_check = imia.match(fioRegExp);
+    if (imia === '' || !imia_check || imia_check[0].length != imia.length) {
+        imia_input.style.backgroundColor = "#ffbbbb";
+        showError('В ФИО допускаются только русские буквы, пробелы и дефисы');
         isValid = false;
     }
+
+    if (otchestvo  != '') {
+        let otchestvo_check = otchestvo.match(fioRegExp);
+        if (!otchestvo_check || !otchestvo_check || otchestvo_check[0].length != otchestvo.length) {
+            otchestvo_input.style.backgroundColor = "#ffbbbb";
+            showError('В ФИО допускаются только русские буквы, пробелы и дефисы');
+            isValid = false;
+        }
+    }
+
+    if (email === '') {
+        email_input.style.backgroundColor = "#ffbbbb";
+        isValid = false;
+    }
+
 
     if (pass != repass) { 
         pass_input.style.backgroundColor = "#ffbbbb";
@@ -142,15 +193,15 @@ register_form.addEventListener('submit', event => {
     
     let captcha = grecaptcha.getResponse();
     
-    /*if (captcha === '') {
+    if (captcha === '') {
         showError('Заполните поле reCaptcha');
         isValid = false;
 
         return false;
-    }*/
+    }
 
 	if (isValid){
-        api.requestData("register", "POST", {login: login, password: pass, fio: fio, email: mail, 'g-recaptcha-response': captcha})
+        api.requestData("register", "POST", {login: login, password: pass, fio: fio, email: email, 'g-recaptcha-response': captcha})
         .then(function(response) {
             
             if (response.res_code === 'OK') {
@@ -199,6 +250,47 @@ login_form.addEventListener('submit', event => {
                 setCookie('bmstuOlimpAuth', response.res_data, {expires: 300});
 
                 toInfo();
+            } else {
+                showError(response.res_msg);
+            }
+        });
+    }	
+});
+
+const recover_form = document.getElementById("recover_form");
+login_form.addEventListener('submit', event => {
+    event.preventDefault();
+
+    const login_input = login_form.getElementsByClassName("login__input")[0];
+    const login = login_input.value;
+
+    const pass_input = login_form.getElementsByClassName("login__input")[1];
+    const pass = pass_input.value;
+
+    resetFields();
+    showError('');
+
+    let isValid = true;
+    if (login === '') {
+        login_input.style.backgroundColor = "#ffbbbb";
+        isValid = false;
+    }
+
+    if (pass.length < 8) {
+        pass_input.style.backgroundColor = "#ffbbbb";
+        isValid = false;
+        showError('Пароль должен содержать минимум 8 символов');
+    }
+			
+	if (isValid){
+        api.requestData("recover", "POST", {login: login, password: pass})
+        .then(function(response) {
+            if (response.res_code === 'OK') {
+                showError(response.res_msg, true);
+
+                setCookie('bmstuOlimpAuth', response.res_data, {expires: 300});
+
+                toLogin();
             } else {
                 showError(response.res_msg);
             }
