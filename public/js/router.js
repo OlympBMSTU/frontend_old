@@ -110,25 +110,25 @@ register_form.addEventListener('submit', event => {
 
     resetFields();
 
-    const login_input = register_form.getElementsByClassName("login__input")[0];
+    const login_input = register_form.getElementById("reg_login_input");
     const login = login_input.value;
 
-    const pass_input = register_form.getElementsByClassName("login__input")[1];
+    const pass_input = register_form.getElementById("reg_password_input");
     const pass = pass_input.value;
 
-    const repass_input = register_form.getElementsByClassName("login__input")[2];
+    const repass_input = register_form.getElementById("reg_repassword_input");
     const repass = repass_input.value;
 
-    const email_input = register_form.getElementsByClassName("login__input")[3];
+    const email_input = register_form.getElementById("reg_email_input");
     const email = email_input.value;
 
-    const familia_input = register_form.getElementsByClassName("login__input")[4];
+    const familia_input = register_form.getElementById("reg_familia_input");
     const familia = familia_input.value;
 
-    const imia_input = register_form.getElementsByClassName("login__input")[5];
+    const imia_input = register_form.getElementById("reg_imia_input");
     const imia = imia_input.value;
 
-    const otchestvo_input = register_form.getElementsByClassName("login__input")[6];
+    const otchestvo_input = register_form.getElementById("reg_otchestvo_input");
     const otchestvo = otchestvo_input.value;
 
 
@@ -218,10 +218,10 @@ const login_form = document.getElementById("login_form");
 login_form.addEventListener('submit', event => {
     event.preventDefault();
 
-    const login_input = login_form.getElementsByClassName("login__input")[0];
+    const login_input = login_form.getElementById("log_login_input");
     const login = login_input.value;
 
-    const pass_input = login_form.getElementsByClassName("login__input")[1];
+    const pass_input = login_form.getElementById("log_password_input");
     const pass = pass_input.value;
 
     login_input.style.backgroundColor = "#ffffff";
@@ -247,7 +247,7 @@ login_form.addEventListener('submit', event => {
             if (response.res_code === 'OK') {
                 showError(response.res_msg, true);
 
-                setCookie('bmstuOlimpAuth', response.res_data, {expires: 300});
+                setCookie('bmstuOlimpAuth', response.res_data, {expires: 84000});
 
                 toInfo();
             } else {
@@ -258,14 +258,14 @@ login_form.addEventListener('submit', event => {
 });
 
 const recover_form = document.getElementById("recover_form");
-login_form.addEventListener('submit', event => {
+recover_form.addEventListener('submit', event => {
     event.preventDefault();
 
-    const login_input = login_form.getElementsByClassName("login__input")[0];
+    const login_input = login_form.getElementById("rec_login_input");
     const login = login_input.value;
 
-    const pass_input = login_form.getElementsByClassName("login__input")[1];
-    const pass = pass_input.value;
+    const email_input = email_form.getElementById("rec_email_input");
+    const email = email_input.value;
 
     resetFields();
     showError('');
@@ -276,19 +276,25 @@ login_form.addEventListener('submit', event => {
         isValid = false;
     }
 
-    if (pass.length < 8) {
-        pass_input.style.backgroundColor = "#ffbbbb";
+    if (email === '') {
+        email_input.style.backgroundColor = "#ffbbbb";
         isValid = false;
-        showError('Пароль должен содержать минимум 8 символов');
     }
-			
+
+	let captcha = grecaptcha.getResponse();
+    
+    if (captcha === '') {
+        showError('Заполните поле reCaptcha');
+        isValid = false;
+
+        return false;
+    }		
+
 	if (isValid){
-        api.requestData("recover", "POST", {login: login, password: pass})
+        api.requestData("recover", "POST", {login: login, email: email, 'g-recaptcha-response': captcha})
         .then(function(response) {
             if (response.res_code === 'OK') {
                 showError(response.res_msg, true);
-
-                setCookie('bmstuOlimpAuth', response.res_data, {expires: 300});
 
                 toLogin();
             } else {
