@@ -110,25 +110,25 @@ register_form.addEventListener('submit', event => {
 
     resetFields();
 
-    const login_input = register_form.getElementById("reg_login_input");
+    const login_input = document.getElementById("reg_login_input");
     const login = login_input.value;
 
-    const pass_input = register_form.getElementById("reg_password_input");
+    const pass_input = document.getElementById("reg_password_input");
     const pass = pass_input.value;
 
-    const repass_input = register_form.getElementById("reg_repassword_input");
+    const repass_input = document.getElementById("reg_repassword_input");
     const repass = repass_input.value;
 
-    const email_input = register_form.getElementById("reg_email_input");
+    const email_input = document.getElementById("reg_email_input");
     const email = email_input.value;
 
-    const familia_input = register_form.getElementById("reg_familia_input");
+    const familia_input = document.getElementById("reg_familia_input");
     const familia = familia_input.value;
 
-    const imia_input = register_form.getElementById("reg_imia_input");
+    const imia_input = document.getElementById("reg_imia_input");
     const imia = imia_input.value;
 
-    const otchestvo_input = register_form.getElementById("reg_otchestvo_input");
+    const otchestvo_input = document.getElementById("reg_otchestvo_input");
     const otchestvo = otchestvo_input.value;
 
 
@@ -218,10 +218,10 @@ const login_form = document.getElementById("login_form");
 login_form.addEventListener('submit', event => {
     event.preventDefault();
 
-    const login_input = login_form.getElementById("log_login_input");
+    const login_input = document.getElementById("log_login_input");
     const login = login_input.value;
 
-    const pass_input = login_form.getElementById("log_password_input");
+    const pass_input = document.getElementById("log_password_input");
     const pass = pass_input.value;
 
     login_input.style.backgroundColor = "#ffffff";
@@ -261,10 +261,10 @@ const recover_form = document.getElementById("recover_form");
 recover_form.addEventListener('submit', event => {
     event.preventDefault();
 
-    const login_input = login_form.getElementById("rec_login_input");
+    const login_input = document.getElementById("rec_login_input");
     const login = login_input.value;
 
-    const email_input = email_form.getElementById("rec_email_input");
+    const email_input = document.getElementById("rec_email_input");
     const email = email_input.value;
 
     resetFields();
