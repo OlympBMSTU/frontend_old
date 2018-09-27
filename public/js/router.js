@@ -191,7 +191,7 @@ register_form.addEventListener('submit', event => {
         return false;
     }
     
-    let captcha = grecaptcha.getResponse();
+    let captcha = grecaptcha.getResponse(1);
     
     if (captcha === '') {
         showError('Заполните поле reCaptcha');
@@ -281,7 +281,7 @@ recover_form.addEventListener('submit', event => {
         isValid = false;
     }
 
-	let captcha = grecaptcha.getResponse();
+	let captcha = grecaptcha.getResponse(0);
     
     if (captcha === '') {
         showError('Заполните поле reCaptcha');
