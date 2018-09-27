@@ -1,7 +1,7 @@
 class API {
 
     constructor() {
-        this.host = "http://olymp.bmstu.ru/api";
+        this.host = "https://olymp.bmstu.ru/api";
     }
 
     requestData(method, httpMethod, params) {
