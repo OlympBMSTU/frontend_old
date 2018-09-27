@@ -201,7 +201,7 @@ register_form.addEventListener('submit', event => {
     }
 
 	if (isValid){
-        api.requestData("register", "POST", {login: login, password: pass, fio: fio, email: email, 'g-recaptcha-response': captcha})
+        api.requestData("register", "POST", {login: login, password: pass, familia: familia, imia: imia, otchestvo: otchestvo, email: email, 'g-recaptcha-response': captcha})
         .then(function(response) {
             
             if (response.res_code === 'OK') {
