@@ -2,7 +2,7 @@ const fioRegExp = /[А-Яа-я- ]+/;
 
 if (!navigator.cookieEnabled) {
     alert( 'Включите cookie для работы с этим сайтом' );
-  }
+}
 
 // LIB
 function resetPage() {
@@ -26,18 +26,18 @@ function toRegister() {
 }
 
 function toInfo() {
-    if (hasCookie('bmstuOlimpAuth')) {
+    if (hasCookie('bmstuOlympAuth')) {
         api.requestData("info", "GET")
         .then(function(response) {
             if (response.res_code === 'OK') {
                 resetPage();
 
-                document.getElementById('fio_info').innerHTML = response.res_data.fio;
+                document.getElementById('fio_info').innerHTML = response.res_data.login;
                 document.getElementById('email_info').innerHTML = response.res_data.email;
 
                 document.getElementById('info_part').style.display = 'block';
             } else {
-                deleteCookie('bmstuOlimpAuth');
+                deleteCookie('bmstuOlympAuth');
                 toLogin();
             }
         });
@@ -61,7 +61,7 @@ function showError (msg, dissolve = false) {
     err_field.innerHTML = msg;
 
     if (dissolve) {
-        setTimeout(function() { document.getElementById("error").innerHTML='' }, 5000);
+        setTimeout(function() { document.getElementById("error").innerHTML='' }, 7000);
     }
 }
 
@@ -100,7 +100,7 @@ const logout_in_info = document.getElementById("btn_logout");
 logout_in_info.onclick = function() {
     showError('');
     toLogin();
-    deleteCookie('bmstuOlimpAuth');
+    deleteCookie('bmstuOlympAuth');
     return false;
 }
 
@@ -310,7 +310,7 @@ login_form.addEventListener('submit', event => {
             if (response.res_code === 'OK') {
                 showError(response.res_msg, true);
 
-                setCookie('bmstuOlimpAuth', response.res_data, {expires: 84000});
+                setCookie('bmstuOlympAuth', response.res_data, {expires: 84000});
 
                 toInfo();
             } else {
@@ -357,7 +357,7 @@ recover_form.addEventListener('submit', event => {
         api.requestData("recover", "POST", {login: login, email: email, 'g-recaptcha-response': captcha})
         .then(function(response) {
             if (response.res_code === 'OK') {
-                showError(response.res_msg, true);
+                showError(response.res_msg);
 
                 toLogin();
             } else {

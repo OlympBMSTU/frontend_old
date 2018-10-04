@@ -1,4 +1,4 @@
-const DOMAIN = '.chs-polygon.website';
+const DOMAIN = '.olymp.bmstu.ru';
 
 // возвращает cookie с именем name, если есть, если нет, то undefined
 function getCookie(name) {

@@ -146,3 +146,22 @@ html, body {
 #btn_recover_pass:hover {
     color: #58a6f0;
 }
+
+/*      */
+/* PERS */
+/*      */
+
+.personal_info {
+    padding: 10px;
+    font-size: 16px;
+}
+
+#fio_info {
+    font-size: 22px;
+    color: #1581E8;
+}
+
+#email_info {
+    color: #1581E8;
+}
+
