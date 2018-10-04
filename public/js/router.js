@@ -1,5 +1,8 @@
 const fioRegExp = /[А-Яа-я- ]+/;
 
+let recoverCaptchaId;
+let registerCaptchaId;
+
 if (!navigator.cookieEnabled) {
     alert( 'Включите cookie для работы с этим сайтом' );
 }
@@ -12,6 +15,15 @@ function resetPage() {
     for (let el of document.getElementsByTagName('input')) {
         el.style.backgroundColor = "#ffffff";
     };
+
+    let myNode = document.getElementById("registerCaptcha");
+    while (myNode.firstChild) {
+        myNode.removeChild(myNode.firstChild);
+    }
+    myNode = document.getElementById("recoverCaptcha");
+    while (myNode.firstChild) {
+        myNode.removeChild(myNode.firstChild);
+    }
 }
 
 function resetFields() {
@@ -22,6 +34,7 @@ function resetFields() {
 
 function toRegister() {
     resetPage();
+    registerCaptchaId = grecaptcha.render('registerCaptcha', {'sitekey' : '6LfhW20UAAAAADa9DGJSwkbulFIWSKhkSS-N0Glo'});
     document.getElementById('register_part').style.display = 'block';
 }
 
@@ -53,6 +66,7 @@ function toLogin() {
 
 function toRecover() {
     resetPage();
+    recoverCaptchaId = grecaptcha.render('recoverCaptcha', {'sitekey' : '6LfhW20UAAAAADa9DGJSwkbulFIWSKhkSS-N0Glo'});
     document.getElementById('recover_part').style.display = 'block';
 }
 
@@ -191,7 +205,7 @@ register_form.addEventListener('submit', event => {
         return false;
     }
     
-    let captcha = grecaptcha.getResponse(1);
+    let captcha = grecaptcha.getResponse(registerCaptchaId);
     
     if (captcha === '') {
         showError('Заполните поле reCaptcha');
@@ -344,7 +358,7 @@ recover_form.addEventListener('submit', event => {
         isValid = false;
     }
 
-	let captcha = grecaptcha.getResponse(0);
+	let captcha = grecaptcha.getResponse(recoverCaptchaId);
     
     if (captcha === '') {
         showError('Заполните поле reCaptcha');
