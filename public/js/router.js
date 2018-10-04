@@ -214,6 +214,69 @@ register_form.addEventListener('submit', event => {
     }	
 });
 
+const change_passsword_form = document.getElementById("change_passsword_form");
+change_passsword_form.addEventListener('submit', event => {
+    event.preventDefault();
+
+    resetFields();
+
+    const old_pass_input = document.getElementById("cng_password_old_input");
+    const old_pass = old_pass_input.value;
+
+    const pass_input = document.getElementById("cng_password_new_input");
+    const pass = pass_input.value;
+
+    const repass_input = document.getElementById("cng_password_renew_input");
+    const repass = repass_input.value;
+
+
+    showError('');
+
+    let isValid = true;
+
+    if (old_pass.length < 8) {
+        old_pass_input.style.backgroundColor = "#ffbbbb";
+        showError('Пароль должен содержать минимум 8 символов');
+        isValid = false;
+    }
+
+    if (pass.length < 8) {
+        pass_input.style.backgroundColor = "#ffbbbb";
+        showError('Пароль должен содержать минимум 8 символов');
+        isValid = false;
+    }
+
+    if (repass.length < 8) {
+        repass_input.style.backgroundColor = "#ffbbbb";
+        showError('Пароль должен содержать минимум 8 символов');
+        isValid = false;
+    }
+
+
+    if (pass != repass) { 
+        pass_input.style.backgroundColor = "#ffbbbb";
+        repass_input.style.backgroundColor = "#ffbbbb";
+        isValid = false;
+
+        showError('Пароли не совпадают');
+
+        return false;
+    }
+
+	if (isValid){
+        api.requestData("changepassword", "POST", {password: old_pass, newpassword: pass} )
+        .then(function(response) {
+            
+            if (response.res_code === 'OK') {
+                showError(response.res_msg, true);
+                toLogin();
+            } else {
+                showError(response.res_msg);
+            }
+        });
+    }	
+});
+
 const login_form = document.getElementById("login_form");
 login_form.addEventListener('submit', event => {
     event.preventDefault();
