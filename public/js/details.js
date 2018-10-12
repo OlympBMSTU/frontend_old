@@ -124,7 +124,7 @@ register_form.addEventListener('submit', event => {
         showError('Заполните поле reCaptcha');
         //isValid = false;
 
-        return false;
+        //return false;
     }
 
 	if (isValid){
