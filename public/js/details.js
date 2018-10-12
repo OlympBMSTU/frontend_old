@@ -128,7 +128,42 @@ register_form.addEventListener('submit', event => {
     }
 
 	if (isValid){
-        api.requestData("details", "POST", {person, 'g-recaptcha-response': captcha})
+        let result = {
+            'person[outer_id]': 1,
+            'person[fio][lastname]': "Иван-Ов",
+            'person[fio][firstname]': "Иван",
+            'person[fio][middlename]': "",
+            'person[birthdate]': person.birthdate,
+            'person[gender]': person.gender,
+            'person[citizenship][citizenship]': person.citizenship.citizenship,
+            'person[citizenship][country_code]': person.citizenship.country_code,
+            'person[identity][placeholder][document][type]': person.document.type,
+            'person[identity][placeholder][document][series]': person.document.series,
+            'person[identity][placeholder][document][num]': person.document.num,
+            'person[identity][placeholder][document][issuer]': person.document.issuer,
+            'person[identity][placeholder][document][issue_date]': person.document.issue_date,
+            'person[contact][1][id]': "",
+            'person[contact][1][value_]': "test1@mail.ru",
+            'person[contact][1][type_]': "4e94c40b-d866-11df-96e9-003048c6b34e",
+            'person[contact][1][relation_type]': "",
+            'person[contact][1][comment_]': "",
+            'person[contact][2][id]': "",
+            'person[contact][2][value_]': person.tel,
+            'person[contact][2][type_]': "59588bf3-d866-11df-96e9-003048c6b34e",
+            'person[contact][2][relation_type]': "family.mother",
+            'person[contact][2][comment_]': "",
+            'person[education][new][education_single_block][class_num]': person.education.class_num,
+            'person[education][new][eduplace][shortname]': person.education.eduplace.shortname,
+            'person[education][new][eduplace][address][country_code]': person.education.eduplace.address.country_code,
+            'person[education][new][eduplace][address][region]': person.education.eduplace.address.region,
+            'person[education][new][eduplace][address][post_index]': person.education.eduplace.address.post_index,
+            'person[education][new][eduplace][address][street]': person.education.eduplace.address.street,
+            'person[education][new][eduplace][address][house]': person.education.eduplace.address.house,
+            'person[education][new][eduplace][address][building]': person.education.eduplace.address.building,
+            'agree': person.agree
+        }
+
+        api.requestData("details", "POST", {result, 'g-recaptcha-response': captcha})
         .then(function(response) {
             
         });
