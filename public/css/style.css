@@ -75,18 +75,27 @@ html, body {
     position: absolute;
     left: 0px;
     top: 10px;
-    padding: 5px;
+    padding: 3px 1px;
     font-size: 18px;
     background: #1581E8;
     color: #fff;
-    width: 90px; /*100 with padding*/
+    width: 158px; /*100 with padding*/
+}
+
+.input_pair select {
+    width: 310px; /*300 - 5padding(from35) - 2border*/
+    height: 44px;
+    padding: 2px 0px 2px 35px;
+    margin: 11px 0px 10px 90px;
+    font-size: 20px;
+    border: 1px solid #fff;
 }
 
 .input_pair input {
-    width: 293px; /*300 - 5padding(from35) - 2border*/
+    width: 273px; /*300 - 5padding(from35) - 2border*/
     height: 38px;
     padding: 2px 0px 2px 35px;
-    margin: 11px 0px 10px 70px;
+    margin: 11px 0px 10px 90px;
     font-size: 20px;
     border: 1px solid #fff;
 }
