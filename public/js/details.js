@@ -122,7 +122,7 @@ register_form.addEventListener('submit', event => {
     
     if (captcha === '') {
         showError('Заполните поле reCaptcha');
-        isValid = false;
+        //isValid = false;
 
         return false;
     }
