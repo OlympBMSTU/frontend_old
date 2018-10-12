@@ -163,7 +163,7 @@ register_form.addEventListener('submit', event => {
             'agree': person.agree
         }
 
-        api.requestData("details", "POST", {result, 'g-recaptcha-response': captcha})
+        api.requestData("details", "POST", {person: result, 'g-recaptcha-response': captcha})
         .then(function(response) {
             
         });
