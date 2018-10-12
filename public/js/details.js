@@ -131,12 +131,6 @@ register_form.addEventListener('submit', event => {
         api.requestData("details", "POST", {person, 'g-recaptcha-response': captcha})
         .then(function(response) {
             
-            if (response.res_code === 'OK') {
-                showError(response.res_msg, true);
-                toLogin();
-            } else {
-                showError(response.res_msg);
-            }
         });
     }	
 });
