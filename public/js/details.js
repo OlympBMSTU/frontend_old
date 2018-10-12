@@ -88,10 +88,11 @@ register_form.addEventListener('submit', event => {
     const education_class_num_input = document.getElementsByName("education.class_num")[0];
     person.education.class_num = education_class_num_input.value;
     
+    person.education.eduplace = {};
     const education_eduplace_shortname_input = document.getElementsByName("education.eduplace.shortname")[0];
     person.education.eduplace.shortname = education_eduplace_shortname_input.value;
 
-    person.education.address = {};
+    person.education.eduplace.address = {};
     const education_eduplace_address_country_code_input = document.getElementsByName("education.eduplace.address.country_code")[0];
     person.education.eduplace.address.country_code = education_eduplace_address_country_code_input.value;
 

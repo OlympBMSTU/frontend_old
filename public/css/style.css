@@ -40,7 +40,7 @@ html, body {
 
 .part {
     display: none;
-    width: 400px;
+    width: 500px;
     background: #f5f5f5;
     text-align: center;
     margin: auto;
@@ -83,19 +83,19 @@ html, body {
 }
 
 .input_pair select {
-    width: 310px; /*300 - 5padding(from35) - 2border*/
+    width: 360px; /*300 - 5padding(from35) - 2border*/
     height: 44px;
     padding: 2px 0px 2px 35px;
-    margin: 11px 0px 10px 90px;
+    margin: 11px 0px 20px 140px;
     font-size: 20px;
     border: 1px solid #fff;
 }
 
 .input_pair input {
-    width: 273px; /*300 - 5padding(from35) - 2border*/
+    width: 323px; /*300 - 5padding(from35) - 2border*/
     height: 38px;
     padding: 2px 0px 2px 35px;
-    margin: 11px 0px 10px 90px;
+    margin: 11px 0px 20px 140px;
     font-size: 20px;
     border: 1px solid #fff;
 }
