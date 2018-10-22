@@ -1,5 +1,10 @@
 const fioRegExp = /[А-Яа-я- ]+/;
 
+if (!NodeList.prototype.forEach && Array.prototype.forEach) {
+    NodeList.prototype.forEach = Array.prototype.forEach;
+}
+  
+
 let recoverCaptchaId;
 let registerCaptchaId;
 
@@ -9,22 +14,27 @@ if (!navigator.cookieEnabled) {
 
 // LIB
 function resetPage() {
-    for (let pt of document.getElementsByClassName('part')) {
+    let parts = document.getElementsByClassName('part');
+    Array.prototype.forEach.call(parts, function(pt) {
         pt.style.display = 'none';
-    };
-    for (let el of document.getElementsByTagName('input')) {
-        el.style.backgroundColor = "#ffffff";
-    };
+    });
 
-    let myNode = document.getElementById("registerCaptcha");
-    while (myNode.firstChild) {
-        myNode.removeChild(myNode.firstChild);
+
+    let inputs = document.getElementsByClassName('input');
+    Array.prototype.forEach.call(inputs, function(el) {
+        el.style.backgroundColor = "#ffffff";
+    });
+
+    let Node = document.getElementById("registerCaptcha");
+    while (Node.firstChild) {
+        Node.removeChild(Node.firstChild);
     }
-    myNode = document.getElementById("recoverCaptcha");
-    while (myNode.firstChild) {
-        myNode.removeChild(myNode.firstChild);
+    Node = document.getElementById("recoverCaptcha");
+    while (Node.firstChild) {
+        Node.removeChild(Node.firstChild);
     }
 }
+
 
 function resetFields() {
     for (let el of document.getElementsByTagName('input')) {
