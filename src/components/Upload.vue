@@ -24,15 +24,20 @@
               <template v-if="(error || loadingError)">
                 {{ error || loadingError }}
               </template>
-              <template v-else>
+              <template v-else-if="!choosen">
                 Перетащите файл сюда <br>
                 или загрузите с компьютера
+              </template>
+              <template v-else>
+                Выбран файл <b>{{ choosen }}</b>
               </template>
               <div :class="[
                 $style.dropzone__link,
                 {[$style.dropzone__link_hover]: hovered}
               ]">
-                Загрузить файл
+                Загрузить 
+                <template v-if="choosen">другой</template>
+                файл
               </div>
             </template>
           </div>
@@ -65,7 +70,8 @@ export default {
       dragActive: false,
       dropZoneEntered: false,
       dragCounter: 0,
-      file: null
+      file: null,
+      choosen: null
     }
   },
   props: {
@@ -122,7 +128,8 @@ export default {
       // validator expects array of files
       // but event.target.files returns FileList
       files = Array.isArray(files) ? files : [files]
-      this.$emit('input', files)
+      this.$emit('upload', files)
+      this.choosen = files[0].name
     }
   },
   mounted () {

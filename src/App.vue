@@ -1,9 +1,5 @@
 <template>
   <div :class="[$style.wrapper]">
-    <!-- temp header, later in component -->
-    <div :class="[$style.header]">
-      Система проведения олимпиад. Загрузка заданий.
-    </div>
     <router-view></router-view>
   </div>
 </template>
@@ -24,13 +20,4 @@ html, body {
 </style>
 
 <style lang="scss" module scoped>
-@import "./styles/base.scss";
-
-.wrapper {
-}
-
-.header {
-  text-align: center;
-  padding: $x2;
-}
 </style>
