@@ -14,6 +14,11 @@
       placeholder="Введите тэги через запятую"
     />
     <input
+      :class="[$style.textinput]"
+      v-model="subject"
+      placeholder="Введите предмет"
+    />
+    <input
       :class="[$style.textinput, {[$style.err]: errors.first('lvl')}]"
       v-model="lvl"
       placeholder="Введите слоджность задания"
@@ -49,6 +54,7 @@ export default {
       loader: null,
       answer: '',
       tags: '',
+      subject: '',
       lvl: '',
       loadingError: '',
       uploading: false
@@ -59,7 +65,7 @@ export default {
   },
   computed: {
     ready () {
-      return this.loader && this.answer.length && this.tags.length && this.lvl.length
+      return this.loader && this.answer.length && this.tags.length && this.lvl.length && this.subject.length
     }
   },
   methods: {
@@ -85,11 +91,15 @@ export default {
     load (files) {
       this.err = ''
       FileAPI.upload({
-        url: '/',
+        url: 'http://localhost:5469/api/exercises/upload_exercise',
+        headers: {
+          'Access-Controll-Request-Method': 'POST'
+        },
         data: {
           answer: this.answer,
           level: this.lvl,
-          tags: this.tags.split(',')
+          tags: JSON.stringify(this.tags.split(',')),
+          subject: this.subject
         },
         files: {
           files

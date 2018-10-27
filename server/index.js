@@ -6,6 +6,8 @@ const app = express();
 
 app.use(express.static('public'));
 app.get('*', (req, res) => {
+    res.header ('Access-Controll-Allow-Origin', '*');
+    res.header ('Access-Controll-Allow-Credentials', true);
     res.sendFile('public/index.html', {root: '.'});
 });
 
