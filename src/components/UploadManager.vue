@@ -109,12 +109,13 @@ export default {
           files
         },
         complete: (statuserr, xhr, file) => {
-          if (xhr.status !== 200) {
+          if (xhr.status !== 201) {
             this.loadingError = 'Не удалось загрузить файлы. Пожалуйста, попробуйте еще раз.'
             this.uploading = false
             this.loadingSuccess = false
           } else {
             // const response = JSON.parse(xhr.response)
+            this.uploading = false
             this.loadingSuccess = true
           }
         }
