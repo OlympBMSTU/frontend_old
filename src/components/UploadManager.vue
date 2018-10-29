@@ -32,6 +32,7 @@
       height="200px"
       v-model="loader"
       :loadingError="loadingError"
+      :loadingSuccess="loadingSuccess"
       :uploading="uploading"
       v-validate="'ext:pdf'"
       name="task_loader"
@@ -57,6 +58,7 @@ export default {
       subject: '',
       lvl: '',
       loadingError: '',
+      loadingSuccess: null,
       uploading: false
     }
   },
@@ -73,6 +75,8 @@ export default {
       this.loader = files
     },
     onFilesLoading () {
+      this.loadingError = null
+      this.loadingSuccess = null
       const files = this.loader
       if (this.ready) {
         this.$validator
@@ -108,8 +112,10 @@ export default {
           if (xhr.status !== 200) {
             this.loadingError = 'Не удалось загрузить файлы. Пожалуйста, попробуйте еще раз.'
             this.uploading = false
+            this.loadingSuccess = false
           } else {
-            const response = JSON.parse(xhr.response)
+            // const response = JSON.parse(xhr.response)
+            this.loadingSuccess = true
           }
         }
       })

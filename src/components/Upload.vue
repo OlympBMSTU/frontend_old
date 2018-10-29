@@ -21,6 +21,9 @@
               Перетащите файл сюда
             </template>
             <template v-else>
+              <div v-if="loadingSuccess" :class="[$style.success]">
+                Файл успешно загружен
+              </div>
               <template v-if="(error || loadingError)">
                 {{ error || loadingError }}
               </template>
@@ -36,7 +39,7 @@
                 {[$style.dropzone__link_hover]: hovered}
               ]">
                 Загрузить 
-                <template v-if="choosen">другой</template>
+                <template v-if="choosen || loadingSuccess">другой</template>
                 файл
               </div>
             </template>
@@ -78,7 +81,8 @@ export default {
     height: String,
     error: String,
     loadingError: String,
-    uploading: Boolean
+    uploading: Boolean,
+    loadingSuccess: Boolean
   },
   computed: {
     loaderStyle () {
@@ -227,5 +231,9 @@ export default {
       text-decoration: underline;
     }
   }
+}
+
+.success {
+  color: #2c772c;
 }
 </style>
