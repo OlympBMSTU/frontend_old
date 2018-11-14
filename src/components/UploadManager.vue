@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="dataReady" :class="[$style.wrapper]">
     <div :class="[$style.header]">
       Система проведения олимпиад. Загрузка заданий.
     </div>
@@ -13,11 +13,15 @@
       v-model="tags"
       placeholder="Введите тэги через запятую"
     />
-    <input
+    <!-- <input
       :class="[$style.textinput]"
       v-model="subject"
       placeholder="Введите предмет"
-    />
+    /> -->
+    <select v-model="subject" :class="[$style.textinput]">
+      <option disabled selected value="-1">Выберите предмет</option>
+      <option v-for="(item, index) in subjects" :key="index" :value="`${item}`">{{item}}</option>
+    </select>
     <input
       :class="[$style.textinput, {[$style.err]: errors.first('lvl')}]"
       v-model="lvl"
@@ -47,15 +51,18 @@
 import fileapi from 'fileapi'
 
 import UploadForm from './Upload'
+import 'whatwg-fetch'
 
 export default {
   inject: ['$validator'],
   data () {
     return {
+      dataReady: false,
+      subjects: [],
       loader: null,
       answer: '',
       tags: '',
-      subject: '',
+      subject: '-1',
       lvl: '',
       loadingError: '',
       loadingSuccess: null,
@@ -67,7 +74,7 @@ export default {
   },
   computed: {
     ready () {
-      return this.loader && this.answer.length && this.tags.length && this.lvl.length && this.subject.length
+      return this.loader && this.answer.length && this.tags.length && this.lvl.length && this.subject !== '-1'
     }
   },
   methods: {
@@ -121,12 +128,33 @@ export default {
         }
       })
     }
+  },
+  mounted () {
+    fetch('/exercises/subjects', {
+      method: 'GET',
+      credentials: 'include'
+    }).then(
+      res => {
+        return res.json()
+      }
+    ).then(
+      res => {
+        if (res.Data && res.Data.length) {
+          this.subjects = res.Data
+          this.dataReady = true
+        }
+      }
+    )
   }
 }
 </script>
 
 <style scoped module lang="scss">
 @import "../styles/base.scss";
+
+.wrapper {
+  padding: $padding-base;
+}
 
 .header {
   text-align: center;
